@@ -239,7 +239,7 @@ class Map(object):
         "laser_weapon_armory": LaserWeaponArmory(),
         "the_bridge": TheBridge(),
         "escape_pod": EscapePod(),
-        "deat": Death(),
+        "death": Death(),
         "finished": Finished()
     }
 
