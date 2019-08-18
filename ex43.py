@@ -62,46 +62,46 @@ class CentralCorridor(Scene):
 
         action = input("> ")
     
-    if action == "shoot!":
-        print(dedent("""
-            Quick on the draw you yank out your blaster and fire 
-            it at the Gothon. His clown costume is flowing and
-            moving around his body, which throws off your aim.
-            Your laser hits his costume but misses him entirely.
-            This completely ruins his brand new costume his mother
-            bought him, which makes him fly into an insane rage
-            and blast you repeatedly in the face until you are 
-            dead. Then he eats you.
-            """))
-        return "death"
-    
-    elif action == "dodge!":
-        print(dedent("""
-            Like a world class boxer you dodge, weave, slip and
-            slide right as the Gothon's blaster cranks a laser
-            past your head. In the middle of your artful doge
-            your foot slips and you bang your head on the metal
-            wall and pass out. You wake shortly after only to
-            die as the Gothon stomps on your head and eats you.
-            """))
-        return "death"
+        if action == "shoot!":
+            print(dedent("""
+                Quick on the draw you yank out your blaster and fire 
+                it at the Gothon. His clown costume is flowing and
+                moving around his body, which throws off your aim.
+                Your laser hits his costume but misses him entirely.
+                This completely ruins his brand new costume his mother
+                bought him, which makes him fly into an insane rage
+                and blast you repeatedly in the face until you are 
+                dead. Then he eats you.
+                """))
+            return "death"
+        
+        elif action == "dodge!":
+            print(dedent("""
+                Like a world class boxer you dodge, weave, slip and
+                slide right as the Gothon's blaster cranks a laser
+                past your head. In the middle of your artful doge
+                your foot slips and you bang your head on the metal
+                wall and pass out. You wake shortly after only to
+                die as the Gothon stomps on your head and eats you.
+                """))
+            return "death"
 
-    elif action == "tell a joke":
-        print(dedent("""
-            Lucky for you they made you learn Gothon insults in
-            the academy. You tell the one Gothon joke you know:
-            Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr,
-            fur fvgf nebhaq gur ubhfr. The Gothon stops, tries
-            not to laugh, then busts out laughing and can't mode.
-            While he's laughing you run up and shoot him square in
-            the head putting him down, then jump through the 
-            Weapon Armory door
-            """))
-        return "laser_weapon_armory"
+        elif action == "tell a joke":
+            print(dedent("""
+                Lucky for you they made you learn Gothon insults in
+                the academy. You tell the one Gothon joke you know:
+                Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr,
+                fur fvgf nebhaq gur ubhfr. The Gothon stops, tries
+                not to laugh, then busts out laughing and can't mode.
+                While he's laughing you run up and shoot him square in
+                the head putting him down, then jump through the 
+                Weapon Armory door
+                """))
+            return "laser_weapon_armory"
 
-    else:
-        print("DOES NOT COMPUTE")
-        return "central_corridor"
+        else:
+            print("DOES NOT COMPUTE")
+            return "central_corridor"
 
 
 class LaserWeaponArmory(Scene):
