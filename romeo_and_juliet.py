@@ -36,7 +36,20 @@ class TheMaskedBall(Scene):
         return self.story_path
 
 class TheBalcony(Scene):
-    pass
+    
+    story_path = None
+
+    def enter(self):
+        print(dedent("""
+            Just outside the Capulet orchard, Romeo hopes to see
+            his beloved Juliet again after falling in love with her
+            at first sight. Romeo stands in the shadows beneath Juliet's
+            bedroom window, thinking she's alone, Juliet reveals her love for Romeo,
+            and despairs over the feud between the two families. Romeo listens
+            and steps out of the darkness. After professing their devotions,
+            Juliet suggests they marry in secret.
+            """))
+    
 
 class TheDuel(Scene):
     pass

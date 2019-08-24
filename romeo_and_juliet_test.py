@@ -86,7 +86,7 @@ class TestStringMethods(unittest.TestCase):
         with self.assertRaises(Exception):
             a_map.advance_scene(Storyline.ALTERNATIVE) 
 
-    def test_enter(self):
+    def test_enter_masked_ball(self):
         a_scene = TheMaskedBall()
         # Capturing the standard output as a test harness.
         capturedOutput = io.StringIO()
@@ -110,6 +110,24 @@ class TestStringMethods(unittest.TestCase):
             assert  a_scene.prompt_user() == "classic"
         with patch("builtins.input", return_value = "no"):
             assert a_scene.prompt_user() == "alternative"
+
+    def test_enter_balcony(self):
+        a_scene = TheBalcony()
+        # Capturing the standard output as a test harness.
+        capturedOutput = io.StringIO()
+        sys.stdout = capturedOutput
+        a_scene.enter()
+        self.assertEqual(capturedOutput.getvalue(), dedent("""
+            Just outside the Capulet orchard, Romeo hopes to see
+            his beloved Juliet again after falling in love with her
+            at first sight. Romeo stands in the shadows beneath Juliet's
+            bedroom window, thinking she's alone, Juliet reveals her love for Romeo,
+            and despairs over the feud between the two families. Romeo listens
+            and steps out of the darkness. After professing their devotions,
+            Juliet suggests they marry in secret.\n
+        """))
+        # Releasing standard output.
+        sys.stdout = sys.__stdout__
 
 if __name__ == '__main__':
     unittest.main()
