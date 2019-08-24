@@ -8,16 +8,28 @@ class Director(object):
     pass
 
 class TheMaskedBall(Scene):
+
+    story_path = None
+
     
     def enter(self):
         print(dedent("""
             It was a starry night in Verona.
-            Romeo, Benvolio, Mercutio, and others from the Montague 
+            Romeo, Benvolio, Mercutio, and others from the Montague
             household make their way to the Capulet Masked Ball with
-            masks concealing their identities. 
+            masks concealing their identities.
             As they enter the fest Romeo locks eyes with the most beautiful
             creature he has ever seen. He instantly falls in love.
+            And they kiss.
             """))
+
+    def prompt_user(self):
+        input_from_user = input("Was that Juliet Capulet? Yes or No > ").to_lower()
+        if input_from_user == "yes":
+            self.story_path = "classic"
+        elif input_from_user == "no":
+            self.story_path = "alternative" 
+        return self.story_path
 
 class TheBalcony(Scene):
     pass
