@@ -1,5 +1,10 @@
 from sys import exit
 from textwrap import dedent
+from enum import Enum
+
+class Storyline(Enum):
+    CLASSIC = "classic"
+    ALTERNATIVE = "alternative"
 
 class Scene(object):
     pass
@@ -11,7 +16,6 @@ class TheMaskedBall(Scene):
 
     story_path = None
 
-    
     def enter(self):
         print(dedent("""
             It was a starry night in Verona.
@@ -24,7 +28,7 @@ class TheMaskedBall(Scene):
             """))
 
     def prompt_user(self):
-        input_from_user = input("Was that Juliet Capulet? Yes or No > ").to_lower()
+        input_from_user = input("Was that Juliet Capulet? Yes or No > ").lower()
         if input_from_user == "yes":
             self.story_path = "classic"
         elif input_from_user == "no":
@@ -46,6 +50,8 @@ class TheApothecary(Scene):
 class TheCapuletTomb(Scene):
     pass
 
+class TheAlternativeEnding(Scene):
+    pass
 
 class Map(object):
 
@@ -55,7 +61,8 @@ class Map(object):
         "the_duel": TheDuel(),
         "the_arrangement": TheArrangement(),
         "the_apothecary": TheApothecary(),
-        "the_capulet_tomb": TheCapuletTomb()
+        "the_capulet_tomb": TheCapuletTomb(),
+        "the_alternative_ending": TheAlternativeEnding()
     }
 
     current_scene = None
@@ -66,19 +73,33 @@ class Map(object):
     def get_current_scene(self):
         return self.current_scene
 
-    def advance_scene(self):
-        if self.current_scene == self.scenes["the_masked_ball"]:
-            self.current_scene = self.scenes["the_balcony"]
-        elif self.current_scene == self.scenes["the_balcony"]:
-            self.current_scene = self.scenes["the_duel"]
-        elif self.current_scene == self.scenes["the_duel"]:
-            self.current_scene = self.scenes["the_arrangement"]
-        elif self.current_scene == self.scenes["the_arrangement"]:
-            self.current_scene = self.scenes["the_apothecary"]
-        elif self.current_scene == self.scenes["the_apothecary"]:
-            self.current_scene = self.scenes["the_capulet_tomb"]
-        elif self.current_scene == self.scenes["the_capulet_tomb"]:
-            raise Exception
+    def advance_scene(self, storyline):
+        if storyline == Storyline.CLASSIC:
+            if self.current_scene == self.scenes["the_masked_ball"]:
+                self.current_scene = self.scenes["the_balcony"]
+            elif self.current_scene == self.scenes["the_balcony"]:
+                self.current_scene = self.scenes["the_duel"]
+            elif self.current_scene == self.scenes["the_duel"]:
+                self.current_scene = self.scenes["the_arrangement"]
+            elif self.current_scene == self.scenes["the_arrangement"]:
+                self.current_scene = self.scenes["the_apothecary"]
+            elif self.current_scene == self.scenes["the_apothecary"]:
+                self.current_scene = self.scenes["the_capulet_tomb"]
+            elif self.current_scene == self.scenes["the_capulet_tomb"]:
+                raise Exception
+        if storyline == Storyline.ALTERNATIVE:
+            if self.current_scene == self.scenes["the_masked_ball"]:
+                self.current_scene = self.scenes["the_alternative_ending"]
+            elif self.current_scene == self.scenes["the_balcony"]:
+                self.current_scene = self.scenes["the_alternative_ending"]
+            elif self.current_scene == self.scenes["the_duel"]:
+                self.current_scene = self.scenes["the_alternative_ending"]
+            elif self.current_scene == self.scenes["the_arrangement"]:
+                self.current_scene = self.scenes["the_alternative_ending"]
+            elif self.current_scene == self.scenes["the_apothecary"]:
+                self.current_scene = self.scenes["the_alternative_ending"]
+            elif self.current_scene == self.scenes["the_alternative_ending"]:
+                raise Exception
         
         return self.current_scene
 
