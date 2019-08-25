@@ -87,7 +87,7 @@ class TestStringMethods(unittest.TestCase):
             a_map.advance_scene(Storyline.ALTERNATIVE) 
 
     def test_enter_masked_ball(self):
-        a_scene = TheMaskedBall()
+        a_scene = TheMaskedBall(Map())
         # Capturing the standard output as a test harness.
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
@@ -104,15 +104,15 @@ class TestStringMethods(unittest.TestCase):
         # Releasing standard output.
         sys.stdout = sys.__stdout__
 
-    def test_promt_user(self):
-        a_scene = TheMaskedBall()
+    def test_prompt_user_masked_ball(self):
+        a_scene = TheMaskedBall(Map())
         with patch("builtins.input", return_value = "yes"):
             assert  a_scene.prompt_user() == "classic"
         with patch("builtins.input", return_value = "no"):
             assert a_scene.prompt_user() == "alternative"
 
     def test_enter_balcony(self):
-        a_scene = TheBalcony()
+        a_scene = TheBalcony(Map())
         # Capturing the standard output as a test harness.
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
@@ -128,6 +128,13 @@ class TestStringMethods(unittest.TestCase):
         """))
         # Releasing standard output.
         sys.stdout = sys.__stdout__
+
+    def test_prompt_user_balcony(self):
+        a_scene = TheBalcony(Map())
+        with patch("builtins.input", return_value = "yes"):
+            assert a_scene.prompt_user() == "classic"
+        with patch("builtins.input", return_value = "no"):
+            assert a_scene.prompt_user() == "alternative"
 
 if __name__ == '__main__':
     unittest.main()

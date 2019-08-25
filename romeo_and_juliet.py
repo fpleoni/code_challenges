@@ -15,6 +15,10 @@ class Director(object):
 class TheMaskedBall(Scene):
 
     story_path = None
+    map = None
+
+    def __init__(self, a_map):
+        self.map = a_map
 
     def enter(self):
         print(dedent("""
@@ -38,6 +42,10 @@ class TheMaskedBall(Scene):
 class TheBalcony(Scene):
     
     story_path = None
+    map = None
+
+    def __init__(self, a_map):
+        self.map = a_map
 
     def enter(self):
         print(dedent("""
@@ -50,6 +58,13 @@ class TheBalcony(Scene):
             Juliet suggests they marry in secret.
             """))
     
+    def prompt_user(self):
+        input_from_user = input("Juliet just proposed to you. Do you say Yes or No > ").lower()
+        if input_from_user == "yes":
+            self.story_path = "classic"
+        elif input_from_user == "no":
+            self.story_path = "alternative"
+        self.map.advance_scene(self.story_path)
 
 class TheDuel(Scene):
     pass
@@ -68,19 +83,19 @@ class TheAlternativeEnding(Scene):
 
 class Map(object):
 
-    scenes = {
-        "the_masked_ball": TheMaskedBall(),
-        "the_balcony": TheBalcony(),
-        "the_duel": TheDuel(),
-        "the_arrangement": TheArrangement(),
-        "the_apothecary": TheApothecary(),
-        "the_capulet_tomb": TheCapuletTomb(),
-        "the_alternative_ending": TheAlternativeEnding()
-    }
-
+    scenes = None
     current_scene = None
 
     def __init__(self):
+        self.scenes = {
+            "the_masked_ball": TheMaskedBall(self),
+            "the_balcony": TheBalcony(self),
+            "the_duel": TheDuel(),
+            "the_arrangement": TheArrangement(),
+            "the_apothecary": TheApothecary(),
+            "the_capulet_tomb": TheCapuletTomb(),
+            "the_alternative_ending": TheAlternativeEnding()
+        }
         self.current_scene = self.scenes["the_masked_ball"]
 
     def get_current_scene(self):
