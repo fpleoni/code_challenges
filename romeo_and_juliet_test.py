@@ -6,8 +6,13 @@ from romeo_and_juliet import *
 
 class MockMap(Map):
     storyline = None
+    play_executed = False
+
     def advance_scene(self, a_storyline):
         self.storyline = a_storyline
+    def play(self):
+        self.play_executed = True
+        
 
 class TestScene(unittest.TestCase):
     def test_print_description(self):
@@ -31,6 +36,7 @@ class TestScene(unittest.TestCase):
         with patch("builtins.input", return_value = "no"):
             a_scene.prompt_user()
             self.assertEqual(a_map.storyline, Storyline.ALTERNATIVE)
+        self.assertTrue(a_map.play_executed)
 
 class TestTheMaskedBall(unittest.TestCase):
     def test_get_message(self):
