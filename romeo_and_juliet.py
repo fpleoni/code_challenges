@@ -22,8 +22,11 @@ class Scene(object):
             """
     
     def enter(self):
-        print(dedent(self.get_message()))
+        self.print_description()
         self.prompt_user()
+    
+    def print_description(self):
+        print(dedent(self.get_message()))
 
     def prompt_user(self):
         input_from_user = input(self.get_prompt()).lower()
@@ -31,9 +34,6 @@ class Scene(object):
             self.a_map.advance_scene(Storyline.CLASSIC)
         elif input_from_user == "no":
             self.a_map.advance_scene(Storyline.ALTERNATIVE)
-
-class Director(object):
-    pass
 
 class TheMaskedBall(Scene):
 
@@ -104,7 +104,7 @@ class Map(object):
         return self.current_scene
 
     def play(self):
-        pass
+        self.current_scene.enter()
 
     def advance_scene(self, storyline):
         if storyline == Storyline.CLASSIC:
@@ -133,8 +133,7 @@ class Map(object):
                 self.current_scene = self.scenes["the_alternative_ending"]
             elif self.current_scene == self.scenes["the_alternative_ending"]:
                 raise Exception
-        
-        return self.current_scene
+        self.current_scene.enter()
 
-the_map = Map()
-the_map.play()
+# the_map = Map()
+# the_map.play()

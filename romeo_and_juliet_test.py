@@ -10,12 +10,12 @@ class MockMap(Map):
         self.storyline = a_storyline
 
 class TestScene(unittest.TestCase):
-    def test_enter(self):
+    def test_print_description(self):
         a_scene = Scene(Map())
         # Capturing the standard output as a test harness.
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
-        a_scene.enter()
+        a_scene.print_description()
         self.assertEqual(capturedOutput.getvalue(), dedent("""
             This scene is yet to be initialized\n
             """))
@@ -58,9 +58,18 @@ class TestTheBalcony(unittest.TestCase):
             Juliet suggests they marry in secret.
             """)
 
+class MockScene(Scene):
+    was_entered = False
+    def enter(self):
+        self.was_entered = True
+
 class TestMap(unittest.TestCase):
     def test_play(self):
-        
+        a_map = Map()
+        mock_scene = MockScene(a_map)
+        a_map.current_scene = mock_scene
+        a_map.play()
+        self.assertTrue(mock_scene.was_entered)      
 
     def test_initial_state(self):
         a_map = Map()
