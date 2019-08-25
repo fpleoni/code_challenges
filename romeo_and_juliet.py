@@ -7,21 +7,38 @@ class Storyline(Enum):
     ALTERNATIVE = "alternative"
 
 class Scene(object):
-    pass
+    a_map = None
+    
+    def __init__(self, a_map):
+        self.a_map = a_map
+
+    def get_message(self):
+        return """
+            This scene is yet to be initialized
+            """
+    def get_prompt(self):
+        return """
+            This scene is yet to be initialized
+            """
+    
+    def enter(self):
+        print(dedent(self.get_message()))
+        self.prompt_user()
+
+    def prompt_user(self):
+        input_from_user = input(self.get_prompt()).lower()
+        if input_from_user == "yes":
+            self.a_map.advance_scene(Storyline.CLASSIC)
+        elif input_from_user == "no":
+            self.a_map.advance_scene(Storyline.ALTERNATIVE)
 
 class Director(object):
     pass
 
 class TheMaskedBall(Scene):
 
-    story_path = None
-    map = None
-
-    def __init__(self, a_map):
-        self.map = a_map
-
-    def enter(self):
-        print(dedent("""
+    def get_message(self):
+        return """
             It was a starry night in Verona.
             Romeo, Benvolio, Mercutio, and others from the Montague
             household make their way to the Capulet Masked Ball with
@@ -29,26 +46,15 @@ class TheMaskedBall(Scene):
             As they enter the fest Romeo locks eyes with the most beautiful
             creature he has ever seen. He instantly falls in love.
             And they kiss.
-            """))
+            """
 
-    def prompt_user(self):
-        input_from_user = input("Was that Juliet Capulet? Yes or No > ").lower()
-        if input_from_user == "yes":
-            self.story_path = "classic"
-        elif input_from_user == "no":
-            self.story_path = "alternative" 
-        return self.story_path
+    def get_prompt(self):
+        return "Was that Juliet Capulet? Yes or No > "
 
 class TheBalcony(Scene):
-    
-    story_path = None
-    map = None
 
-    def __init__(self, a_map):
-        self.map = a_map
-
-    def enter(self):
-        print(dedent("""
+    def get_message(self):
+        return """
             Just outside the Capulet orchard, Romeo hopes to see
             his beloved Juliet again after falling in love with her
             at first sight. Romeo stands in the shadows beneath Juliet's
@@ -56,15 +62,11 @@ class TheBalcony(Scene):
             and despairs over the feud between the two families. Romeo listens
             and steps out of the darkness. After professing their devotions,
             Juliet suggests they marry in secret.
-            """))
+            """
     
-    def prompt_user(self):
-        input_from_user = input("Juliet just proposed to you. Do you say Yes or No > ").lower()
-        if input_from_user == "yes":
-            self.story_path = "classic"
-        elif input_from_user == "no":
-            self.story_path = "alternative"
-        self.map.advance_scene(self.story_path)
+    def get_prompt(self):
+        return "Juliet just proposed to you. Do you say Yes or No > "
+
 
 class TheDuel(Scene):
     pass
@@ -90,16 +92,19 @@ class Map(object):
         self.scenes = {
             "the_masked_ball": TheMaskedBall(self),
             "the_balcony": TheBalcony(self),
-            "the_duel": TheDuel(),
-            "the_arrangement": TheArrangement(),
-            "the_apothecary": TheApothecary(),
-            "the_capulet_tomb": TheCapuletTomb(),
-            "the_alternative_ending": TheAlternativeEnding()
+            "the_duel": TheDuel(self),
+            "the_arrangement": TheArrangement(self),
+            "the_apothecary": TheApothecary(self),
+            "the_capulet_tomb": TheCapuletTomb(self),
+            "the_alternative_ending": TheAlternativeEnding(self)
         }
         self.current_scene = self.scenes["the_masked_ball"]
 
     def get_current_scene(self):
         return self.current_scene
+
+    def play(self):
+        pass
 
     def advance_scene(self, storyline):
         if storyline == Storyline.CLASSIC:
@@ -131,3 +136,5 @@ class Map(object):
         
         return self.current_scene
 
+the_map = Map()
+the_map.play()
