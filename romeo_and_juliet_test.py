@@ -51,6 +51,11 @@ class TestTheMaskedBall(unittest.TestCase):
             And they kiss.
             """)
 
+    def test_get_prompt(self):
+        scene = TheBalcony(MockMap())
+        self.assertEqual(scene.get_prompt(), "Was that Juliet Capulet? Yes or No > ")
+    
+
 class TestTheBalcony(unittest.TestCase):
     def test_get_message(self):
         scene = TheBalcony(MockMap())
@@ -63,6 +68,31 @@ class TestTheBalcony(unittest.TestCase):
             and steps out of the darkness. After professing their devotions,
             Juliet suggests they marry in secret.
             """)
+    
+    def test_get_prompt(self):
+        scene = TheBalcony(MockMap())
+        self.assertEqual(scene.get_prompt(), "Juliet just proposed to you. Do you say Yes or No > ")
+
+class TestTheDuel(unittest.TestCase):
+    def test_get_message(self):
+        scene = TheDuel(MockMap())
+        self.assertEqual(scene.get_message(), """
+            During the heat of the day, Benvolio and Mercutio are
+            loitering on the streets of Verona when Tybalt arrives
+            looking for Romeo. Mercutio is deliberately provocative
+            and tries to draw Tybalt into an argument so that they can fight.
+            Romeo appears and Tybalt insults him, hoping he will respond 
+            to the challenge, but Romeo refuses because he is marrying Juliet. 
+            Tybalt and Mercutio draw their swords and fight. To stop 
+            the battle, Romeo steps between them and Tybalt stabs 
+            Mercutio under Romeo's arm. Mercutio's wound is fatal. 
+            Blinded by rage over Mercutio's death, Romeo attacks 
+            Tybalt and kills him.
+            """)
+    
+    def test_get_prompt(self):
+        scene = TheDuel(MockMap())
+        self.assertEqual(scene.get_prompt(), "You just killed Tybalt. Do you flee? Yes or No > ")
 
 class MockScene(Scene):
     was_entered = False

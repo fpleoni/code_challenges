@@ -70,7 +70,24 @@ class TheBalcony(Scene):
 
 
 class TheDuel(Scene):
-    pass
+
+    def get_message(self):
+        return """
+            During the heat of the day, Benvolio and Mercutio are
+            loitering on the streets of Verona when Tybalt arrives
+            looking for Romeo. Mercutio is deliberately provocative
+            and tries to draw Tybalt into an argument so that they can fight.
+            Romeo appears and Tybalt insults him, hoping he will respond 
+            to the challenge, but Romeo refuses because he is marrying Juliet. 
+            Tybalt and Mercutio draw their swords and fight. To stop 
+            the battle, Romeo steps between them and Tybalt stabs 
+            Mercutio under Romeo's arm. Mercutio's wound is fatal. 
+            Blinded by rage over Mercutio's death, Romeo attacks 
+            Tybalt and kills him.
+            """
+    
+    def get_prompt(self):
+        return "You just killed Tybalt. Do you flee? Yes or No > "
 
 class TheArrangement(Scene):
     pass
