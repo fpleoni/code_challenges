@@ -65,3 +65,19 @@ lp_prob += x[4] + x[8] + x[12] == dummy_demand
 
 lp_prob.solve()
 plp.LpStatus[lp_prob.status]
+
+# Print our decision variable values
+
+print("Items from Warehouse 1 to Store 1 = {}".format(x[1].varValue))
+print("Items from Warehouse 1 to Store 2 = {}".format(x[2].varValue))
+print("Items from Warehouse 1 to Store 3 = {}".format(x[3].varValue))
+print("Items from Warehouse 2 to Store 1 = {}".format(x[5].varValue))
+print("Items from Warehouse 2 to Store 2 = {}".format(x[6].varValue))
+print("Items from Warehouse 2 to Store 3 = {}".format(x[7].varValue))
+print("Items from Warehouse 3 to Store 1 = {}".format(x[9].varValue))
+print("Items from Warehouse 3 to Store 2 = {}".format(x[10].varValue))
+print("Items from Warehouse 3 to Store 3 = {}".format(x[11].varValue))
+
+# Print our objective function value
+
+print("Total transportation cost is {}".format(plp.value(lp_prob.objective)))
