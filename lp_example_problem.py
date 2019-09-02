@@ -7,14 +7,12 @@ lp_prob = plp.LpProblem("transportationProblem", plp.LpMinimize)
 w1 = 8
 w2 = 6
 w3 = 3
-total_supply = w1 + w2 + w3
 
 # Demand
 s1 = 4
 s2 = 2
 s3 = 3
 dummy_demand = 8
-total_demand = s1 + s2 + s3
 
 # Delivery rates from shops to warehouses in USD
 # Since there is an 8 unit surplus in supply, 
@@ -45,7 +43,7 @@ x = plp.LpVariable.dicts("item_quatity", list(range(1, 13)), lowBound = 0, cat =
 
 lp_prob += (x[1] * s1_w1 + x[2] * s2_w1 + x[3] * s3_w1 + x[4] * sd_w1 
             + x[5] * s1_w2 + x[6] * s2_w2 + x[7] * s2_w3 + x[8] * sd_w2
-            + x[9] * s1_w3 + x[10] * s3_w2 + x[11] * s3_w3 + x[12] * sd_w3), "TransportationCost"
+            + x[9] * s1_w3 + x[10] * s3_w2 + x[11] * s3_w3 + x[12] * sd_w3)
 
 # Constraints
 # Supply Constraints
