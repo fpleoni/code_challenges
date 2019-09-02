@@ -1,7 +1,7 @@
 import pulp as plp
 
 # Start with creating a problem instance
-lp_prob = plp.LpProblem(name = "transportationProblem", plp.LpMinimize)
+lp_prob = plp.LpProblem("transportationProblem", plp.LpMinimize)
 
 # Supply
 w1 = 8
@@ -48,13 +48,20 @@ lp_prob += (x[1] * s1_w1 + x[2] * s2_w1 + x[3] * s3_w1 + x[4] * sd_w1
             + x[9] * s1_w3 + x[10] * s3_w2 + x[11] * s3_w3 + x[12] * sd_w3), "TransportationCost"
 
 # Constraints
+# Supply Constraints
 
 lp_prob += x[1] + x[2] + x[3] + x[4] == w1
 lp_prob += x[5] + x[6] + x[7] * x[8] == w2
 lp_prob += x[9] + x[10] + x[11] + x[12] == w3
+
+# Demand Constraints
+
 lp_prob += x[1] + x[5] + x[9] == s1
 lp_prob += x[2] + x[6] + x[10] == s2
 lp_prob += x[3] + x[7] + x[11] == s3
 lp_prob += x[4] + x[8] + x[12] == dummy_demand
 
+# Solve
 
+lp_prob.solve()
+plp.LpStatus[lp_prob.status]
