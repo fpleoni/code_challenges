@@ -49,7 +49,7 @@ lp_prob += (x[1] * s1_w1 + x[2] * s2_w1 + x[3] * s3_w1 + x[4] * sd_w1
 # Supply Constraints
 
 lp_prob += x[1] + x[2] + x[3] + x[4] == w1
-lp_prob += x[5] + x[6] + x[7] * x[8] == w2
+lp_prob += x[5] + x[6] + x[7] + x[8] == w2
 lp_prob += x[9] + x[10] + x[11] + x[12] == w3
 
 # Demand Constraints
