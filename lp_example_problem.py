@@ -38,5 +38,13 @@ sd_w3 = 0
 # Decision variables
 # We want the number of items transported from the i-th source
 # To the j-th destionation
-item_quantity = plp.LpVariable.dicts("item_quatity", list(range(1, 13)), lowBound = 0, cat = "Integer")
+
+x = plp.LpVariable.dicts("item_quatity", list(range(1, 13)), lowBound = 0, cat = "Integer")
+
+# Objective Function
+
+lp_prob += (x[1] * s1_w1 + x[2] * s2_w1 + x[3] * s3_w1 + x[4] * sd_w1 
+            + x[5] * s1_w2 + x[6] * s2_w2 + x[7] * s2_w3 + x[8] * sd_w2
+            + x[9] * s1_w3 + x[10] * s3_w2 + x[11] * s3_w3 + x[12] * sd_w3)
+
 
